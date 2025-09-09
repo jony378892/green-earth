@@ -41,26 +41,6 @@ const loadPlants = () => {
     .catch((err) => console.error("Plant fetch error:", err));
 };
 
-//  Filter Category
-const filterPlants = (id) => {
-  console.log("Running filterPlants function");
-
-  if (!id || id == 0) {
-    displayPlants(allPlants);
-  } else {
-    fetch(`https://openapi.programming-hero.com/api/category/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        cardContainer.innerHTML = `
-    <div class="flex justify-center items-center py-10 w-full">
-      <span class="loading loading-spinner loading-lg "></span>
-    </div>
-  `;
-        displayPlants(data.plants);
-      });
-  }
-};
-
 // Display Categories
 const displayCategories = (categories) => {
   console.log("Running displayCategories function");
@@ -89,6 +69,27 @@ categoryContainer.addEventListener("click", (e) => {
   }
 });
 
+//  Filter Category
+const filterPlants = (id) => {
+  console.log("Running filterPlants function");
+
+  if (!id || id == 0) {
+    displayPlants(allPlants);
+  } else {
+    fetch(`https://openapi.programming-hero.com/api/category/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        cardContainer.innerHTML = `
+    <div class="flex justify-center items-center py-10 w-full">
+      <span class="loading loading-spinner loading-lg "></span>
+    </div>
+  `;
+        displayPlants(data.plants);
+      });
+  }
+};
+
+// Remove class for highlighting
 const removeButtonClass = () => {
   console.log("Running removeButtonClass function");
 
@@ -104,27 +105,27 @@ const displayPlants = (plants) => {
   const plantCards = plants.map((plant) => {
     return `<div id="plant" class="card bg-base-100 shadow-sm p-2">
       <figure>
-        <img
-          src="${plant.image}"
-          alt="${plant.name}"
-          class="h-40 sm:h-44 w-full object-cover object-center"
-        />
+      <img
+      src="${plant.image}"
+      alt="${plant.name}"
+      class="h-40 sm:h-44 w-full object-cover object-center"
+      />
       </figure>
       <div class="card-body py-2 px-0">
-        <h2 onclick="showModal(${plant.id})" class="card-title">${plant.name}</h2>
-        <p class="line-clamp-3 text-sm">${plant.description}</p>
-        <div class="flex items-center justify-between my-2">
-          <div class="badge badge-soft badge-success rounded-full badge-sm text-green-800">
-            ${plant.category}
-          </div>
-          <div class="font-semibold">$${plant.price}</div>
-        </div>
-        <button onclick="handleCart(${plant.id})"
-          class="btn btn-sm rounded-full bg-green-800 hover:bg-green-900 text-white font-semibold">
+      <h2 onclick="showModal(${plant.id})" class="card-title">${plant.name}</h2>
+      <p class="line-clamp-3 text-sm">${plant.description}</p>
+      <div class="flex items-center justify-between my-2">
+      <div class="badge badge-soft badge-success rounded-full badge-sm text-green-800">
+      ${plant.category}
+      </div>
+      <div class="font-semibold">$${plant.price}</div>
+      </div>
+      <button onclick="handleCart(${plant.id})"
+      class="btn btn-sm rounded-full bg-green-800 hover:bg-green-900 text-white font-semibold">
           Add to cart
         </button>
       </div>
-    </div>`;
+      </div>`;
   });
 
   cardContainer.innerHTML = plantCards.join("");
@@ -165,7 +166,7 @@ const removeCartItem = (id) => {
 
   const index = cartItems.findIndex((item) => item.id === id);
   if (index !== -1) {
-    cartItems.splice(index, 1); // remove from array
+    cartItems.splice(index, 1);
   }
   displayCartItems();
 };
@@ -180,13 +181,13 @@ const displayCartItems = () => {
     return `
     <div class="flex items-start justify-between bg-sky-100 rounded-md p-2 mt-2">
       <div class="flex flex-col">
-        <p class="text-sm font-semibold">${item.name}</p>
-        <span class="text-xs">Qty: <span class="font-semibold">${item.qty}</span></span>
+      <p class="text-sm font-semibold">${item.name}</p>
+      <span class="text-xs">Qty: <span class="font-semibold">${item.qty}</span></span>
       </div>
       <div class="flex items-center gap-2">
-        <p class="text-sm font-semibold">$${item.finalPrice}</p>
-        <button onclick="removeCartItem(${item.id})"
-          class="text-red-500 hover:text-red-700 font-bold text-sm">❌</button>
+      <p class="text-sm font-semibold">$${item.finalPrice}</p>
+      <button onclick="removeCartItem(${item.id})"
+          class="text-red-500 hover:text-red-700 font-bold text-sm cursor-pointer">❌</button>
       </div>
     </div>`;
   });
