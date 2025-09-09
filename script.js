@@ -225,9 +225,9 @@ const displayModalDetails = (plant) => {
     </figure>
     <div class="card-body py-2 px-0">
       <h2 class="card-title">${plant.name}</h2>
-      <p class="line-clamp-3 text-sm">${plant.description}</p>
-      <div>Category: ${plant.category}</div>
-      <div>Price: $${plant.price}</div>
+      <p class="line-clamp-3 text-sm"><span class="font-semibold">Description: </span>${plant.description}</p>
+      <div><span class="font-semibold">Category: </span>${plant.category}</div>
+      <div><span class="font-semibold">Price: </span> $${plant.price}</div>
     </div>
     <div class="modal-action">
       <form method="dialog">
