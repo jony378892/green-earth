@@ -9,6 +9,7 @@ let cartItems = [];
 
 // Fetch and display categories
 const loadCategories = () => {
+  console.log("Running loadCategories function");
   categoryContainer.innerHTML = `
     <div class="flex justify-center items-center py-10">
       <span class="loading loading-spinner loading-lg "></span>
@@ -23,6 +24,8 @@ const loadCategories = () => {
 
 // Fetch plants (once) and store globally
 const loadPlants = () => {
+  console.log("Running loadPlants function");
+
   cardContainer.innerHTML = `
     <div class="flex justify-center items-center py-10 w-full">
       <span class="loading loading-spinner loading-lg "></span>
@@ -40,6 +43,8 @@ const loadPlants = () => {
 
 //  Filter Category
 const filterPlants = (id) => {
+  console.log("Running filterPlants function");
+
   if (!id || id == 0) {
     displayPlants(allPlants);
   } else {
@@ -58,6 +63,8 @@ const filterPlants = (id) => {
 
 // Display Categories
 const displayCategories = (categories) => {
+  console.log("Running displayCategories function");
+
   categoryContainer.innerHTML = `<button id="0" class="cat_btn bg-green-800 text-white hover:bg-green-600 py-1 px-4 rounded-md hover:text-white w-full text-left cursor-pointer">All Trees</button>`;
 
   const allCategories = categories.map((category) => {
@@ -72,6 +79,8 @@ const displayCategories = (categories) => {
 
 // Handle category clicks
 categoryContainer.addEventListener("click", (e) => {
+  console.log("Running addEventListener for categories");
+
   if (e.target.localName === "button") {
     removeButtonClass();
     e.target.classList.add("bg-green-800", "text-white");
@@ -81,6 +90,8 @@ categoryContainer.addEventListener("click", (e) => {
 });
 
 const removeButtonClass = () => {
+  console.log("Running removeButtonClass function");
+
   document.querySelectorAll(".cat_btn").forEach((btn) => {
     btn.classList.remove("bg-green-800", "text-white");
   });
@@ -88,6 +99,8 @@ const removeButtonClass = () => {
 
 // Render plant cards
 const displayPlants = (plants) => {
+  console.log("Running displayPlants function");
+
   const plantCards = plants.map((plant) => {
     return `<div id="plant" class="card bg-base-100 shadow-sm p-2">
       <figure>
@@ -119,11 +132,15 @@ const displayPlants = (plants) => {
 
 // Handle cart
 const handleCart = (id) => {
+  console.log("Running handleCart function");
+
   const plant = allPlants.find((p) => p.id === id);
   if (plant) manageItem(plant);
 };
 
 const manageItem = (plant) => {
+  console.log("Running manageItem function");
+
   const index = cartItems.findIndex((item) => item.id === plant.id);
 
   if (index === -1) {
@@ -144,6 +161,8 @@ const manageItem = (plant) => {
 
 // Remove item from cart
 const removeCartItem = (id) => {
+  console.log("Running removeItem function");
+
   const index = cartItems.findIndex((item) => item.id === id);
   if (index !== -1) {
     cartItems.splice(index, 1); // remove from array
@@ -153,6 +172,8 @@ const removeCartItem = (id) => {
 
 // Display cart items
 const displayCartItems = () => {
+  console.log("Running displayCartItems function");
+
   cartContainer.innerHTML = "";
 
   const newCartItems = cartItems.map((item) => {
@@ -183,12 +204,16 @@ const displayCartItems = () => {
 
 // Show modal with details
 const showModal = (id) => {
+  console.log("Running showModel function");
+
   fetch(`https://openapi.programming-hero.com/api/plant/${id}`)
     .then((res) => res.json())
     .then((data) => displayModalDetails(data.plants));
 };
 
 const displayModalDetails = (plant) => {
+  console.log("Running displayModalDetails function");
+
   modalContent.innerHTML = `
     <figure>
       <img
